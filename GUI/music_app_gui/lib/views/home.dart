@@ -28,13 +28,18 @@ class _HomeState extends State<Home> {
   }
 
   Future<Category> getCategory() async {
-    final response =
-        await http.get(Uri.parse('http://127.0.0.1:8000/music/categories/1/'));
-    if (response.statusCode == 200) {
-      return Category.fromJson(
-          jsonDecode(response.body) as Map<String, dynamic>);
-    } else {
-      throw Exception('Failed to load category: ${response.body}');
+    try {
+      final response = await http
+          .get(Uri.parse('http://127.0.0.1:8000/music/categories/1/'));
+      if (response.statusCode == 200) {
+        return Category.fromJson(
+            jsonDecode(response.body) as Map<String, dynamic>);
+      } else {
+        throw Exception('Failed to load category: ${response.body}');
+      }
+    } catch (e) {
+      print(e);
+      throw Exception('Failed to load fetch');
     }
   }
 

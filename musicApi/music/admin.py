@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Category, Musician,Album,Music
+from .models import Category, Musician,Album,Music,List
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -20,7 +20,12 @@ class MusicAdmin(admin.ModelAdmin):
     list_display = ('name','artist','album','num_stars')
     prepopulated_fields = {'slug': ('name',)}
 
+class ListAdmin(admin.ModelAdmin):
+    list_display = ('name','image','creator')
+    prepopulated_fields = {'slug': ('name',)}
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Musician,MusicianAdmin)
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Music, MusicAdmin)
+admin.site.register(List,ListAdmin)

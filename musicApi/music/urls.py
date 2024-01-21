@@ -8,6 +8,8 @@ router.register(r'categories', views.CategoryViewSet)
 router.register(r'musicians', views.MusicianViewSet)
 router.register(r'albums', views.AlbumViewSet)
 router.register(r'musics', views.MusicViewSet)
+router.register(r'lists', views.ListViewSet)
+router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
     path('api/v1/', include(router.urls)),
