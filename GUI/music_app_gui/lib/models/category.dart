@@ -50,7 +50,6 @@ class Category {
 
   @override
   String toString() {
-    // TODO: implement toString
     return '$id, $name, $description, $slug, $createdAt, $updatedAt';
   }
 }

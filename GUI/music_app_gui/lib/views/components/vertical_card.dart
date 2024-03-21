@@ -1,21 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:music_app_gui/models/list.dart';
+import 'package:music_app_gui/models/music.dart';
+import 'package:music_app_gui/utils/list_utils.dart';
+import 'package:music_app_gui/utils/request.dart';
 
-class VerticalCard extends StatelessWidget {
-  final VoidCallback? onPressed;
-  final String imagePath;
+class VerticalCard extends StatefulWidget {
+  final String? imagePath;
   final String text;
+  final MusicList list;
 
-  VerticalCard({
-    super.key,
-    this.onPressed,
-    required this.imagePath,
-    required this.text,
-  });
+  const VerticalCard(
+      {super.key,
+      required this.imagePath,
+      required this.text,
+      required this.list});
+
+  @override
+  State<VerticalCard> createState() => _VerticalCardState();
+}
+
+class _VerticalCardState extends State<VerticalCard> {
+  List<Music> musics = [];
+  bool isHover = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setMusics();
+  }
+
+  void setMusics() async {
+    musics = await Request.getMusics(widget.list.musics);
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onPressed,
+      onPressed: () => ListUtils.openList(context, widget.list, musics),
+      onHover: (value) {
+        setState(() {
+          isHover = value;
+        });
+      },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -40,7 +67,9 @@ class VerticalCard extends StatelessWidget {
                 bottomLeft: Radius.circular(5.0),
               ),
               child: Image.network(
-                imagePath,
+                widget.imagePath!.isEmpty
+                    ? dotenv.env['404']!
+                    : widget.imagePath!,
                 width: 100.0, // Adjust the width as needed
                 height: 100.0, // Adjust the height as needed
                 fit: BoxFit.cover,
@@ -50,7 +79,7 @@ class VerticalCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
-                  text,
+                  widget.text,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
@@ -58,6 +87,28 @@ class VerticalCard extends StatelessWidget {
                 ),
               ),
             ),
+            if (isHover)
+              Center(
+                child: AnimatedOpacity(
+                  opacity: isHover ? 1.0 : 0.0,
+                  duration: const Duration(milliseconds: 500),
+                  child: InkWell(
+                    onTap: () => ListUtils.playList(context, musics),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.green,
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      child: const Icon(
+                        Icons.play_arrow,
+                        color: Colors.white,
+                        size: 30.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

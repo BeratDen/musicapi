@@ -1,8 +1,18 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext as _
-
 # Create your models here.
+
+class User(AbstractUser):
+    name = models.CharField(_('Name'), max_length=255)
+    email = models.EmailField(_('Email'),unique=True, max_length=255)
+    password = models.CharField(_("Password"), max_length=255)
+    bio = models.CharField(_("Bio"), max_length=255, blank=True)
+    cover_photo = models.ImageField(_("Cover"), upload_to='covers/', height_field=None, width_field=None, max_length=None, null=True, blank=True)
+    username = None
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
 class Category(models.Model):
     class Meta:
@@ -66,10 +76,11 @@ class List(models.Model):
     slug = models.SlugField(default="",null=False)
     description = models.TextField(_("Description"))
     image = models.ImageField(_("Image"), upload_to='static/images', height_field=None, width_field=None, max_length=None)
-    creator = models.ForeignKey(User, verbose_name=_("Creator"), on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, verbose_name=_("Creator"), on_delete=models.CASCADE,related_name='lists')
     musics = models.ManyToManyField(Music, verbose_name=_("Musics"))
 
     def __str__(self) -> str:
         return f"{self.name}"
+
 
 

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:music_app_gui/models/album.dart';
 import 'package:music_app_gui/models/artis.dart';
-import 'package:music_app_gui/models/music.dart';
+import 'package:music_app_gui/utils/request.dart';
+import 'package:music_app_gui/views/components/album_card.dart';
 import 'package:music_app_gui/views/components/artist_card.dart';
 import 'package:http/http.dart' as http;
 
@@ -40,7 +41,37 @@ class _LeftPanelListState extends State<LeftPanelList> {
                   ]),
                 );
               } else {
-                return const Text('Loading');
+                return ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    const ArtistList(artists: [
+                      Artist(
+                          firstName: 'loading',
+                          lastName: '',
+                          resume: '',
+                          avatar: '',
+                          categories: [],
+                          albums: [],
+                          musics: []),
+                      Artist(
+                          firstName: 'loading',
+                          lastName: '',
+                          resume: '',
+                          avatar: '',
+                          categories: [],
+                          albums: [],
+                          musics: []),
+                      Artist(
+                          firstName: 'loading',
+                          lastName: '',
+                          resume: '',
+                          avatar: '',
+                          categories: [],
+                          albums: [],
+                          musics: []),
+                    ]);
+                  },
+                );
               }
             }),
       ),
@@ -95,9 +126,8 @@ class ArtistList extends StatelessWidget {
                 color: Colors.grey[850],
                 borderRadius: const BorderRadius.all(Radius.circular(10))),
             child: ArtistCard(
-              url: artists[index].avatar ?? '',
-              artistName:
-                  '${artists[index].firstName} ${artists[index].lastName}',
+              artist: artists[index],
+              index: index,
             ),
           ),
         );
@@ -116,25 +146,28 @@ class AlbumList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: albums.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(
-              left: 0.0, top: 10.0, right: 0.0, bottom: 0.0),
-          child: Container(
-            decoration: BoxDecoration(
-                color: Colors.grey[850],
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-            child: ArtistCard(
-              url: albums[index].image,
-              artistName: albums[index].name,
-            ),
-          ),
-        );
-      },
-    );
+    return FutureBuilder(
+        future: Request.getAlbums(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Padding(
+              padding: const EdgeInsets.only(
+                  left: 0.0, top: 10.0, right: 0.0, bottom: 0.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.grey[850],
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                child: Column(
+                  children: List.generate(snapshot.data!.length, (index) {
+                    return AlbumCard(
+                      album: snapshot.data![index],
+                    );
+                  }),
+                ),
+              ),
+            );
+          }
+          return const Text('Loading...');
+        });
   }
 }

@@ -17,7 +17,7 @@ class AlbumAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 class MusicAdmin(admin.ModelAdmin):
-    list_display = ('name','artist','album','num_stars')
+    list_display = ('name','album','num_stars')
     prepopulated_fields = {'slug': ('name',)}
 
 class ListAdmin(admin.ModelAdmin):

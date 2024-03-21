@@ -2,6 +2,7 @@ class Music {
   final String name;
   final String? lyrics;
   final String artist;
+  final String artistName;
   final String album;
   final String? musicUrl;
   final String? imageUrl;
@@ -14,6 +15,7 @@ class Music {
     required this.name,
     required this.lyrics,
     required this.artist,
+    required this.artistName,
     required this.album,
     this.musicUrl,
     this.imageUrl,
@@ -25,12 +27,14 @@ class Music {
 
   factory Music.fromJson(Map<String, dynamic> json) {
     try {
-      final List<dynamic>? categoriesJson = json['category'];
+      final dynamic categoriesJson = json['category'];
+      List<String> categories;
       if (categoriesJson == null || categoriesJson.isEmpty) {
         return Music(
           name: json['name'],
           lyrics: json['lyrics'],
           artist: json['artist'],
+          artistName: json['artist_name'],
           album: json['album'],
           musicUrl: json['music_url'],
           imageUrl: json['image_url'],
@@ -41,14 +45,20 @@ class Music {
         );
       }
 
-      final List<String> categories = categoriesJson.map((category) {
-        return category.toString();
-      }).toList();
+      if (categoriesJson is List) {
+        // "category" is a list of strings
+        categories = List<String>.from(
+            categoriesJson.map((category) => category.toString()));
+      } else {
+        // "category" is a single item (string or null)
+        categories = [categoriesJson?.toString() ?? ''];
+      }
 
       return Music(
         name: json['name'],
         lyrics: json['lyrics'],
         artist: json['artist'],
+        artistName: json['artist_name'],
         album: json['album'],
         musicUrl: json['music_url'] ?? '',
         imageUrl: json['image_url'] ?? '',
@@ -60,5 +70,11 @@ class Music {
     } catch (e) {
       throw FormatException('Failed to fetch music. Error: $e');
     }
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return 'Music name : $name, Artist Name : , Artist : $artist, Album : $album, Music Url : $musicUrl, Image Url : $imageUrl, Video Url : $videoUrl, Release Date : $releaseDate, Stars : $stars ';
   }
 }

@@ -21,5 +21,5 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('music/',include('music.urls'))
+    path('music/',include('musics.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

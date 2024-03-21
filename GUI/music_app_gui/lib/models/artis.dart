@@ -1,20 +1,20 @@
 class Artist {
-  final String firstName;
-  final String lastName;
-  final String resume;
+  final String? firstName;
+  final String? lastName;
+  final String? resume;
   final String? avatar;
-  final List<String> categories;
-  final List<String> albums;
-  final List<String> musics;
+  final List<String>? categories;
+  final List<String>? albums;
+  final List<String>? musics;
 
   const Artist(
-      {required this.firstName,
-      required this.lastName,
-      required this.resume,
-      required this.avatar,
-      required this.categories,
-      required this.albums,
-      required this.musics});
+      {this.firstName,
+      this.lastName,
+      this.resume,
+      this.avatar,
+      this.categories,
+      this.albums,
+      this.musics});
 
   factory Artist.fromJson(Map<String, dynamic> json) {
     try {

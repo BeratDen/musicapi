@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from music.models import Category, Musician, Album, Music, List
-from music.api.serializers import CategorySerializer, MusicianSerializer,AlbumSerializer,MusicSerializer, ListSerializer, UserSerializer
-from rest_framework import permissions, viewsets
+from musics.models import Category, Musician, Album, Music, List
+from musics.api.serializers import CategorySerializer, MusicianSerializer,AlbumSerializer,MusicSerializer, ListSerializer, UserSerializer
+from rest_framework import permissions, viewsets, filters
 
 # Create your views here.
 
@@ -21,6 +21,8 @@ class AlbumViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
 class MusicViewSet(viewsets.ModelViewSet):
+    search_fields = ['name','artist__first_name','artist__last_name','lyric']
+    filter_backends = (filters.SearchFilter,)
     queryset = Music.objects.all()
     serializer_class = MusicSerializer
     permission_classes = [permissions.AllowAny]
