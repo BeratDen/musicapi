@@ -1,18 +1,21 @@
 class Category {
   final int id;
   final String name;
+  final String value;
   final String description;
   final String slug;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  const Category(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.slug,
-      required this.createdAt,
-      required this.updatedAt});
+  const Category({
+    required this.id,
+    required this.name,
+    required this.value,
+    required this.description,
+    required this.slug,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
   /// The function `fromJson` is a factory constructor in Dart that takes a JSON object and returns a `Category` object if
   /// the JSON is in the expected format, otherwise it throws a `FormatException`.
@@ -27,6 +30,7 @@ class Category {
       {
         'id': int id,
         'name': String name,
+        'value': String value,
         'description': String description,
         'slug': String slug,
         'createdAt': String
@@ -37,6 +41,7 @@ class Category {
         Category(
           id: id,
           name: name,
+          value: value,
           description: description,
           slug: slug,
           createdAt: DateTime.parse(

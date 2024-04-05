@@ -1,9 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
-import 'package:music_app_gui/models/category.dart';
 import 'package:music_app_gui/views/components/responsive/desktop_body.dart';
 import 'package:music_app_gui/views/components/responsive/mobile_body.dart';
 import 'package:music_app_gui/views/components/responsive/responsive_layout.dart';
@@ -16,32 +11,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Future<Category>? category;
-  late Future<List<Category>>? categories;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    category = getCategory();
-  }
-
-  Future<Category> getCategory() async {
-    try {
-      final response = await http
-          .get(Uri.parse('${dotenv.env['SERVER']}/music/categories/1/'));
-      if (response.statusCode == 200) {
-        return Category.fromJson(
-            jsonDecode(response.body) as Map<String, dynamic>);
-      } else {
-        throw Exception('Failed to load category: ${response.body}');
-      }
-    } catch (e) {
-      print(e);
-      throw Exception('Failed to load fetch');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return const ResponsiveLayout(

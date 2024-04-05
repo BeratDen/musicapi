@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:music_app_gui/utils/dio_client.dart';
+import 'package:music_app_gui/views/auth/login_screen.dart';
 import 'package:music_app_gui/views/components/video_player/video_bar_provider.dart';
-import 'package:music_app_gui/views/home.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:io';
-
 import 'package:provider/provider.dart';
 
 Future main() async {
@@ -11,6 +11,8 @@ Future main() async {
   try {
     final result = await InternetAddress.lookup('example.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      WidgetsFlutterBinding.ensureInitialized();
+      await DioClient.init();
       runApp(MultiProvider(
         providers: [
           ChangeNotifierProvider(
@@ -21,6 +23,7 @@ Future main() async {
       ));
     }
   } catch (e) {
+    WidgetsFlutterBinding.ensureInitialized();
     runApp(const ConnectionNotFound());
   }
 }
@@ -32,7 +35,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => const LoginScreen(),
       },
     );
   }

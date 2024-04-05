@@ -1,18 +1,7 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext as _
+from django.contrib.auth import get_user_model
 # Create your models here.
-
-class User(AbstractUser):
-    name = models.CharField(_('Name'), max_length=255)
-    email = models.EmailField(_('Email'),unique=True, max_length=255)
-    password = models.CharField(_("Password"), max_length=255)
-    bio = models.CharField(_("Bio"), max_length=255, blank=True)
-    cover_photo = models.ImageField(_("Cover"), upload_to='covers/', height_field=None, width_field=None, max_length=None, null=True, blank=True)
-    username = None
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
 class Category(models.Model):
     class Meta:
@@ -55,14 +44,16 @@ class Album(models.Model):
 # music_url, image_url, video_url, release_date, and num_stars.
 class Music(models.Model):
     name = models.CharField(_("Name"), max_length=50)
+    uploader = models.ForeignKey(get_user_model(), verbose_name=_("Uploader"), on_delete=models.CASCADE)
     slug = models.SlugField(default="",null=False)
     lyric = models.TextField(_("Lyric"),null=True,blank=True)
-    artist = models.ForeignKey(Musician, verbose_name=_("Artist"), on_delete=models.CASCADE)
+    artist = models.ForeignKey(Musician, verbose_name=_("Artists"), on_delete=models.CASCADE, related_name="artist")
+    feats = models.ManyToManyField(Musician, verbose_name=_("Feats"), blank=True, related_name="feats")
     category = models.ManyToManyField(Category, verbose_name=_("Category"))
-    album = models.ForeignKey(Album, verbose_name=_(""), on_delete=models.CASCADE)
-    music_url = models.URLField(_("Music Path"), max_length=200,null=True,blank=True)
-    image_url = models.URLField(_("Image Path"), max_length=200,null=True,blank=True)
-    video_url = models.URLField(_("Video Path"), max_length=200,null=True,blank=True)
+    albums = models.ManyToManyField(Album, verbose_name=_("Albums"),blank=True)
+    music_url = models.URLField(_("Music Path"), max_length=500,null=True,blank=True)
+    image_url = models.URLField(_("Image Path"), max_length=500,null=True,blank=True)
+    video_url = models.URLField(_("Video Path"), max_length=500,null=True,blank=True)
     release_date = models.DateField(_("Relase Date"))
     num_stars = models.IntegerField(_("Stars"))
 
@@ -76,7 +67,7 @@ class List(models.Model):
     slug = models.SlugField(default="",null=False)
     description = models.TextField(_("Description"))
     image = models.ImageField(_("Image"), upload_to='static/images', height_field=None, width_field=None, max_length=None)
-    creator = models.ForeignKey(User, verbose_name=_("Creator"), on_delete=models.CASCADE,related_name='lists')
+    creator = models.ForeignKey(get_user_model(), verbose_name=_("Creator"), on_delete=models.CASCADE,related_name='lists')
     musics = models.ManyToManyField(Music, verbose_name=_("Musics"))
 
     def __str__(self) -> str:

@@ -31,12 +31,12 @@ class _VerticalCardState extends State<VerticalCard> {
   }
 
   void setMusics() async {
-    musics = await Request.getMusics(widget.list.musics);
+    musics = await Request.getMusics(widget.list.musics, []);
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
       onPressed: () => ListUtils.openList(context, widget.list, musics),
       onHover: (value) {
         setState(() {
@@ -77,7 +77,7 @@ class _VerticalCardState extends State<VerticalCard> {
             ),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Text(
                   widget.text,
                   style: const TextStyle(
@@ -99,11 +99,11 @@ class _VerticalCardState extends State<VerticalCard> {
                         shape: BoxShape.circle,
                         color: Colors.green,
                       ),
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: const Icon(
                         Icons.play_arrow,
                         color: Colors.white,
-                        size: 30.0,
+                        size: 15.0,
                       ),
                     ),
                   ),

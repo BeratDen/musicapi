@@ -24,7 +24,7 @@ class _CardViewState extends State<CardView> {
   }
 
   void setMusics() async {
-    musics = await Request.getMusics(widget.list.musics);
+    musics = await Request.getMusics(widget.list.musics, []);
   }
 
   @override

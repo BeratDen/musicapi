@@ -20,8 +20,7 @@ class _RecomendedListsState extends State<RecomendedLists> {
           future: Request.getLists(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Container(
-                  child: GridView.count(
+              return GridView.count(
                 crossAxisCount: 5,
                 shrinkWrap: false,
                 children: List.generate(snapshot.data!.length, (index) {
@@ -29,7 +28,7 @@ class _RecomendedListsState extends State<RecomendedLists> {
                     list: snapshot.data![index],
                   );
                 }),
-              ));
+              );
             }
             return const Text('Loading...');
           },

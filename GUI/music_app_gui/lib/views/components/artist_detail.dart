@@ -61,7 +61,7 @@ class _ArtistDetailState extends State<ArtistDetail> {
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(10)),
                                 image: DecorationImage(
-                                  image: NetworkImage(widget.albums.length > 0
+                                  image: NetworkImage(widget.albums.isNotEmpty
                                       ? widget.albums[0].image
                                       : dotenv.env[
                                           '404']!), // Replace with your banner image

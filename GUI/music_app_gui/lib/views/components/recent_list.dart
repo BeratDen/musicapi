@@ -20,8 +20,8 @@ class _RecentListenedListsState extends State<RecentListenedLists> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: (1 / .15),
+              crossAxisCount: 4,
+              childAspectRatio: (1 / .30),
               shrinkWrap: false,
               children: List.generate(snapshot.data!.length, (index) {
                 return Padding(

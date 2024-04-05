@@ -32,7 +32,7 @@ class AudioPlayerProvider with ChangeNotifier {
       notifyListeners();
     });
     _volumeSubscription = _player.volumeStream.listen((volume) {
-      print(volume);
+      debugPrint(volume.toString());
       _currentVolume = volume;
       notifyListeners();
     });
@@ -181,7 +181,7 @@ class AudioPlayerProvider with ChangeNotifier {
   }
 
   void onVolumeValueChange(double value) {
-    print('incoming value: $value');
+    debugPrint('incoming value: $value');
     _player.setVolume(value);
   }
 
@@ -194,7 +194,6 @@ class AudioPlayerProvider with ChangeNotifier {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _durationSubscription?.cancel();
     _positionSubscription?.cancel();
     _volumeSubscription?.cancel();

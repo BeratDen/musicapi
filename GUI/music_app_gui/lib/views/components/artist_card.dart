@@ -23,12 +23,12 @@ class _ArtistCardState extends State<ArtistCard> {
   @override
   void initState() {
     super.initState();
-    setMusics();
+    getMusics();
   }
 
-  void setMusics() async {
+  void getMusics() async {
     // todo try to get link of music from backend
-    musics = await Request.formatMusics(widget.artist.musics!);
+    musics = await Request.getMusics(widget.artist.musics, widget.artist.feats);
   }
 
   @override
