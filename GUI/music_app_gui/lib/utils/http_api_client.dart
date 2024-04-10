@@ -29,13 +29,13 @@ class HttpApiClient implements ApiClient {
   }
 
   @override
-  Future<String> list(String url) async {
+  Future<List<dynamic>> list(String url) async {
     final response = await DioClient.dio.get(url);
     debugPrint(response.statusMessage);
     if (response.statusCode == 200) {
-      return 'Data found ${response.data.toString()}';
+      return response.data;
     }
-    return 'Error';
+    return [];
   }
 
   @override
@@ -49,12 +49,14 @@ class HttpApiClient implements ApiClient {
   }
 
   @override
-  Future<String> delete(String url) async {
-    final response = await DioClient.dio.delete(url);
-    debugPrint(response.statusMessage);
-    if (response.statusCode == 200) {
-      return 'Data deleted ${response.data.toString()}';
+  Future<Response<dynamic>> delete(String url) async {
+    try {
+      final response = await DioClient.dio.delete(url);
+      debugPrint(response.statusMessage);
+      return response;
+    } on DioException catch (e) {
+      // Handle DioException
+      throw Exception(e.message);
     }
-    return 'Error';
   }
 }

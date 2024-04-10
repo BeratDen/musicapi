@@ -27,12 +27,14 @@ class AlbumSerializer(serializers.HyperlinkedModelSerializer):
 
 class MusicSerializer(serializers.HyperlinkedModelSerializer):
     artist_name = serializers.CharField(source='artist.first_name',read_only=True)
+    value = serializers.HyperlinkedIdentityField(view_name='music-detail')
     class Meta:
         model = Music
         fields = [
             'name',
             'uploader',
             'slug',
+            'value',
             'lyric',
             'artist',
             'artist_name',

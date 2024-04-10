@@ -16,7 +16,7 @@ class _LeftPanelState extends State<LeftPanel> {
     return ResizableContainer(
       direction: Axis.vertical,
       dividerWidth: 3,
-      dividerColor: Colors.green,
+      dividerColor: Colors.grey[850],
       children: const [
         ResizableChildData(
           startingRatio: 0.25,

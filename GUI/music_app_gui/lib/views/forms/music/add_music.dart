@@ -410,14 +410,12 @@ class _AddMusicState extends State<AddMusic> {
                                       content: Row(
                                         children: [
                                           CircularProgressIndicator(),
-                                          Text("Logging In...")
+                                          Text("Adding Music...")
                                         ],
                                       ),
                                     );
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(snackBar);
-                                    await Future.delayed(
-                                        const Duration(seconds: 2));
                                     try {
                                       var response = await createMusic();
                                       if (response.statusCode == 200) {

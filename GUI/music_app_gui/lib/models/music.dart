@@ -1,5 +1,6 @@
 class Music {
   final String name;
+  final String value;
   final String? lyrics;
   final String artist;
   final String artistName;
@@ -13,6 +14,7 @@ class Music {
 
   const Music({
     required this.name,
+    required this.value,
     required this.lyrics,
     required this.artist,
     required this.artistName,
@@ -34,6 +36,7 @@ class Music {
       if (categoriesJson == null || categoriesJson.isEmpty) {
         return Music(
           name: json['name'],
+          value: json['value'],
           lyrics: json['lyrics'],
           artist: json['artist'],
           artistName: json['artist_name'],
@@ -60,6 +63,7 @@ class Music {
 
       return Music(
           name: json['name'],
+          value: json['value'],
           lyrics: json['lyrics'],
           artist: json['artist'],
           artistName: json['artist_name'],

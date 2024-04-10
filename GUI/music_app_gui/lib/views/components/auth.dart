@@ -5,6 +5,7 @@ import 'package:music_app_gui/utils/dio_client.dart';
 import 'package:music_app_gui/utils/http_api_client.dart';
 import 'package:music_app_gui/views/auth/login_screen.dart';
 import 'package:music_app_gui/views/forms/music/music_list.dart';
+import 'package:music_app_gui/views/forms/musicians/musicians_list.dart';
 
 class AuthBar extends StatefulWidget {
   const AuthBar({super.key});
@@ -84,18 +85,21 @@ class _AuthBarState extends State<AuthBar> {
           onTap: () {
             if (!mounted) return;
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const MusicList()));
+                MaterialPageRoute(builder: (context) => const MusicsList()));
           },
           child: Text(
-            'Add Music',
+            'Musics',
             style: TextStyle(color: Colors.grey[300]),
           ),
         ),
         PopupMenuItem(
           onTap: () {
-            debugPrint('Option 2');
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => const MusiciansList())));
           },
-          child: Text('Option 2', style: TextStyle(color: Colors.grey[300])),
+          child: Text('Musicians', style: TextStyle(color: Colors.grey[300])),
         ),
         PopupMenuItem(
           onTap: () async {
