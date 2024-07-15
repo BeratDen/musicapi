@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:music_app_gui/view_models/home_model.dart';
-import 'package:music_app_gui/views/components/responsive/mobile/center_list.dart';
+import 'package:music_app_gui/views/components/responsive/mobile/lists/center_list.dart';
 import 'package:music_app_gui/views/components/responsive/mobile/mobile_video_player.dart';
 import 'package:music_app_gui/views/components/responsive/mobile/singer/singer_list_view.dart';
 import 'package:music_app_gui/views/components/secondary_button.dart';

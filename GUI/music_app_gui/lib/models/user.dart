@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class User {
   String id;
   String value;
@@ -44,5 +45,10 @@ class User {
       email: _instance.email,
       value: _instance.value,
     };
+  }
+
+  @override
+  String toString() {
+    return 'User(id: $id, value: $value, username: $username, email: $email)';
   }
 }

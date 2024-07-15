@@ -6,6 +6,8 @@ import 'package:music_app_gui/utils/dio_client.dart';
 import 'package:music_app_gui/utils/globals.dart';
 import 'package:music_app_gui/views/auth/login_view.dart';
 import 'package:music_app_gui/views/auth/login_view_model.dart';
+import 'package:music_app_gui/views/components/responsive/mobile/lists/music_list_view_model.dart';
+import 'package:music_app_gui/views/components/responsive/mobile/singer/singer_list_view_model.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 
@@ -27,6 +29,8 @@ Future<void> main() async {
           ChangeNotifierProvider(create: (_) => AudioPlayerProvider()),
           ChangeNotifierProvider(create: (_) => LoginViewModel()),
           ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProvider(create: (_) => SingerListViewModel()),
+          ChangeNotifierProvider(create: (_) => MusicListViewModel()),
         ],
         child: const MainApp(),
       ));

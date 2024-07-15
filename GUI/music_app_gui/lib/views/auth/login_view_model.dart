@@ -1,14 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app_gui/models/user.dart';
 import 'package:music_app_gui/providers/user_provider.dart';
-import 'package:music_app_gui/utils/globals.dart';
-import 'package:music_app_gui/views/auth/login_view.dart';
 import 'package:music_app_gui/views/auth/model/login_request_model.dart';
 import 'package:music_app_gui/views/auth/service/login_service.dart';
 import 'package:music_app_gui/views/auth/service/user_service.dart';
 import 'package:music_app_gui/views/home.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class LoginViewModel extends ChangeNotifier {
   late final LoginService loginService;
