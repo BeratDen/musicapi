@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:music_app_gui/models/artis.dart';
 import 'package:music_app_gui/utils/crud_repository.dart';
 import 'package:music_app_gui/utils/http_api_client.dart';
-import 'package:music_app_gui/views/components/responsive/desktop_layout.dart';
+import 'package:music_app_gui/views/components/responsive/dekstop/desktop_layout.dart';
 import 'package:music_app_gui/views/forms/musicians/add_artist.dart';
 
 class MusiciansList extends StatefulWidget {
@@ -91,7 +91,10 @@ class _MusiciansListState extends State<MusiciansList> {
                             debugPrint('Request update or delete');
                             // TODO: open model for reporting
                           },
-                          icon: const Icon(Icons.report_sharp),
+                          icon: const Icon(
+                            Icons.report_sharp,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     ),

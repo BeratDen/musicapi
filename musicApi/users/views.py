@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, NotFound
 from .serializes import UserSerializer
 from .models import CustomUser
 import jwt, datetime
@@ -22,7 +22,8 @@ class LoginAPIView(APIView):
         user = CustomUser.objects.filter(email=email).first()
 
         if user is None:
-            raise AuthenticationFailed('User not found')
+            print('user not found')
+            raise NotFound('User not found')
 
         if not user.check_password(password):
             raise AuthenticationFailed('Password is incorrect')

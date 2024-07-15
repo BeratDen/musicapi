@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_app_gui/views/components/video_player/video_bar_provider.dart';
+import 'package:music_app_gui/providers/video_bar_provider.dart';
 import 'package:provider/provider.dart';
 
 class VideoBar extends StatefulWidget {
@@ -11,20 +11,16 @@ class VideoBar extends StatefulWidget {
 
 class _VideoBarState extends State<VideoBar> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<AudioPlayerProvider>(
         builder: (context, audioPlayerProvider, child) {
       return Scaffold(
         body: Container(
           color: Colors.grey[850],
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Left Section (Music Image, Name, and Artist Name)
               SizedBox(
@@ -64,6 +60,7 @@ class _VideoBarState extends State<VideoBar> {
               Expanded(
                 child: Column(
                   children: [
+                    // Back, Stop, Forward Buttons
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

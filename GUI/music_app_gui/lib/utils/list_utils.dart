@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:music_app_gui/models/album.dart';
 import 'package:music_app_gui/models/list.dart';
 import 'package:music_app_gui/models/music.dart';
-import 'package:music_app_gui/views/components/album_detail.dart';
-import 'package:music_app_gui/views/components/artist_detail.dart';
-import 'package:music_app_gui/views/components/list_detail.dart';
-import 'package:music_app_gui/views/components/search.dart';
-import 'package:music_app_gui/views/components/video_player/video_bar_provider.dart';
+import 'package:music_app_gui/views/components/responsive/dekstop/album_detail.dart';
+import 'package:music_app_gui/views/components/responsive/dekstop/artist_detail.dart';
+import 'package:music_app_gui/views/components/responsive/dekstop/list_detail.dart';
+import 'package:music_app_gui/views/components/responsive/dekstop/search.dart';
+import 'package:music_app_gui/providers/video_bar_provider.dart';
 import 'package:provider/provider.dart';
 
 class ListUtils {

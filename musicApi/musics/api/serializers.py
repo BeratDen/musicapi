@@ -67,6 +67,7 @@ class MusicianSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Musician
         fields = ['first_name','last_name','value','avatar','slug','resume','category','albums','musics','feats']
+        read_only_fields = ['slug',]
 
     def get_albums(self,obj):
         albums = obj.album_set.all()

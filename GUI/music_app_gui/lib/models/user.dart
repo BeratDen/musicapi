@@ -12,10 +12,14 @@ class User {
       required this.email,
       required this.value});
 
+  User(
+      {required this.id,
+      required this.username,
+      required this.email,
+      required this.value});
+
   static User getInstance() {
-    if (_instance == null) {
-      _instance = User._(id: "", username: "", email: "", value: "");
-    }
+    _instance ??= User._(id: "", username: "", email: "", value: "");
     return _instance;
   }
 

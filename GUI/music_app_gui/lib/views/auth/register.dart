@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:music_app_gui/models/user.dart';
 import 'package:music_app_gui/utils/crud_repository.dart';
 import 'package:music_app_gui/utils/http_api_client.dart';
-import 'package:music_app_gui/views/auth/login_screen.dart';
+import 'package:music_app_gui/views/auth/login_view.dart';
 import 'package:music_app_gui/views/components/primary_button.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:music_app_gui/utils/globals.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -25,7 +25,7 @@ class _RegisterState extends State<Register> {
   @override
   void initState() {
     super.initState();
-    userRepo = CrudRepository('${dotenv.env['SERVER']}/register', apiClient);
+    userRepo = CrudRepository('$globalServerUrl/register', apiClient);
   }
 
   @override
@@ -63,7 +63,7 @@ class _RegisterState extends State<Register> {
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                   FormBuilderValidators.match(
-                      "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*?[0-9])[a-zA-Z\d]{8,}",
+                      "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*?[0-9])[a-zA-Zd]{8,}",
                       errorText:
                           'Password must have at least minimum eight characters, at least one uppercase letter, one lowercase letter and one number.'),
                 ]),

@@ -19,7 +19,7 @@ class Category(models.Model):
 class Musician(models.Model):
     first_name = models.CharField(_("First Name"), max_length=50)
     last_name = models.CharField(_("Last Name"), max_length=50)
-    avatar = models.ImageField(_("Avatar"), upload_to='static/images/avatars', height_field=None, width_field=None, max_length=None,null=True)
+    avatar = models.URLField(_("Avatar"), max_length=500)
     slug = models.SlugField(default="",null=False)
     resume = models.TextField(_("Resume"),blank=True, null=True,)
     category = models.ManyToManyField(Category, verbose_name=_("Category"))
@@ -32,7 +32,7 @@ class Musician(models.Model):
 class Album(models.Model):
     name = models.CharField(_("Name"), max_length=50)
     slug = models.SlugField(default="",null=False)
-    image = models.ImageField(_("Image"), upload_to='static/images/albums', height_field=None, width_field=None, max_length=None,null=True)
+    image = models.URLField(_("Image"), max_length=500)
     artist = models.ForeignKey(Musician, verbose_name=_("Artist"), on_delete=models.CASCADE)
     release_date = models.DateField(_("Relase Date"))
     num_stars = models.IntegerField(_("Stars"))

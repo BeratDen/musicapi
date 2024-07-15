@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:music_app_gui/utils/dio_client.dart';
-import 'package:music_app_gui/views/auth/login_screen.dart';
-import 'package:music_app_gui/views/components/video_player/video_bar_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'dart:io';
+import 'package:music_app_gui/providers/user_provider.dart';
+import 'package:music_app_gui/providers/video_bar_provider.dart';
+import 'package:music_app_gui/utils/dio_client.dart';
+import 'package:music_app_gui/utils/globals.dart';
+import 'package:music_app_gui/views/auth/login_view.dart';
+import 'package:music_app_gui/views/auth/login_view_model.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 
-Future main() async {
+// Platforma bağlı sunucu URL'sini alacak fonksiyon
+
+Future<void> main() async {
   await dotenv.load(fileName: '.env');
+  globalServerUrl = Platform.isAndroid || Platform.isIOS
+      ? dotenv.env['EMU_SERVER']!
+      : dotenv.env['SERVER']!;
+
   try {
     final result = await InternetAddress.lookup('example.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -15,9 +24,9 @@ Future main() async {
       await DioClient.init();
       runApp(MultiProvider(
         providers: [
-          ChangeNotifierProvider(
-            create: (_) => AudioPlayerProvider(),
-          ),
+          ChangeNotifierProvider(create: (_) => AudioPlayerProvider()),
+          ChangeNotifierProvider(create: (_) => LoginViewModel()),
+          ChangeNotifierProvider(create: (_) => UserProvider()),
         ],
         child: const MainApp(),
       ));
@@ -35,7 +44,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => const LoginScreen(),
+        '/': (context) => LoginView(),
       },
     );
   }

@@ -4,12 +4,12 @@ import 'package:music_app_gui/models/artis.dart';
 import 'package:music_app_gui/models/list.dart';
 import 'package:music_app_gui/models/music.dart';
 import 'package:music_app_gui/utils/dio_client.dart';
+import 'package:music_app_gui/utils/globals.dart';
 
 class Request {
   static Future<List<MusicList>> getLists() async {
     List<MusicList> lists = [];
-    final response =
-        await DioClient.dio.get('${dotenv.env['SERVER']}/music/lists');
+    final response = await DioClient.dio.get('$globalServerUrl/music/lists');
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in response.data) {
         lists.add(MusicList.fromJson(index));
@@ -45,20 +45,28 @@ class Request {
   static Future<List<Music>> getMusicsByParam(String search) async {
     List<Music> musics = [];
     final response = await DioClient.dio
-        .get('${dotenv.env['SERVER']}/music/musics/?search=$search');
+        .get('$globalServerUrl/music/musics/?search=$search');
+    final youtubeResponse = await DioClient.dio.get(
+        '${dotenv.env['YOUTUBE']}/search?key=${dotenv.env['KEY']}&q=$search&type=${dotenv.env['TYPE']}&maxResults=${dotenv.env['MAX_RESULTS']}&part=${dotenv.env['PART']}&videoCategoryId=${dotenv.env['VIDEO_CATEGORY_ID']}');
+
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in response.data) {
         musics.add(Music.fromJson(index));
       }
-      return musics;
     }
+    if (youtubeResponse.statusCode == 200) {
+      // print(youtubeResponse.data);
+      List<Music> youtubeMusics =
+          await Music.fromYouTubeJson(youtubeResponse.data);
+      musics.addAll(youtubeMusics);
+    }
+
     return musics;
   }
 
   static Future<List<Album>> getAlbums() async {
     List<Album> albums = [];
-    final response =
-        await DioClient.dio.get('${dotenv.env['SERVER']}/music/albums');
+    final response = await DioClient.dio.get('$globalServerUrl/music/albums');
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in response.data) {
         albums.add(Album.fromJson(index));
@@ -71,7 +79,7 @@ class Request {
   static Future<List<Artist>> getArtists() async {
     List<Artist> artists = [];
     final response =
-        await DioClient.dio.get('${dotenv.env['SERVER']}/music/musicians');
+        await DioClient.dio.get('$globalServerUrl/music/musicians');
     if (response.statusCode == 200) {
       for (Map<String, dynamic> index in response.data) {
         artists.add(Artist.fromJson(index));

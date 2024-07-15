@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:music_app_gui/views/components/responsive/desktop_body.dart';
-import 'package:music_app_gui/views/components/responsive/mobile_body.dart';
+import 'package:music_app_gui/views/components/responsive/dekstop/desktop_body.dart';
+
+import 'package:music_app_gui/views/components/responsive/mobile/mobile_body.dart';
 import 'package:music_app_gui/views/components/responsive/responsive_layout.dart';
 
 class Home extends StatefulWidget {

@@ -23,18 +23,4 @@ class Session {
     // updateCookie(response);
     return json.decode(response.data);
   }
-
-  // void updateCookie(http.Response response) {
-  //   dio.interceptors.add(CookieManager(cookieJar));
-  //   print(cookieJar.saveFromResponse(uri, cookies));
-
-  // String? rawCookie = response.headers['set-cookie'];
-  // print(response.headers);
-  // if (rawCookie != null) {
-  //   int index = rawCookie.indexOf(';');
-  //   headers['cookie'] =
-  //       (index == -1) ? rawCookie : rawCookie.substring(0, index);
-  // }
-  // print(headers);
-  // }
 }
