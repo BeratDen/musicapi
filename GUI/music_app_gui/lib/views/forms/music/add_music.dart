@@ -414,6 +414,7 @@ class _AddMusicState extends State<AddMusic> {
                                           _mp3Name,
                                           _mp3Bytes);
                                       if (!controller.isLoading.value) {
+                                        if (!context.mounted) return;
                                         ScaffoldMessenger.of(context)
                                             .clearSnackBars();
                                       }

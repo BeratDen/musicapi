@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_app_gui/models/music.dart';
+import 'package:music_app_gui/utils/globals.dart';
 import 'package:music_app_gui/utils/youtube_exploit.dart';
 
 class AudioPlayerProvider with ChangeNotifier {
@@ -62,7 +63,11 @@ class AudioPlayerProvider with ChangeNotifier {
 
   double get totalDurationInMili =>
       _currentDuration?.inMilliseconds.toDouble() ?? 0;
+
   double get positionInMili => _currentPosition?.inMilliseconds.toDouble() ?? 0;
+
+  double get percentege => positionInMili / totalDurationInMili;
+
   double get volumeValue => _currentVolume?.clamp(0.0, 1.0).toDouble() ?? 0;
 
   bool get isPlaying => _player.playing;
@@ -187,12 +192,13 @@ class AudioPlayerProvider with ChangeNotifier {
     if (musics != null &&
         _player.currentIndex != null &&
         _player.currentIndex! < musics!.length) {
-      if (musics![_player.currentIndex!].imageUrl!.isEmpty) {
-        return 'http://127.0.0.1:8000/static/images/404.jpg';
+      String? imageUrl = musics?[_player.currentIndex!].imageUrl;
+      if (imageUrl == null || imageUrl.isEmpty) {
+        return globalStaticImage;
       }
-      return musics![_player.currentIndex!].imageUrl!;
+      return imageUrl;
     } else {
-      return 'http://127.0.0.1:8000/static/images/404.jpg';
+      return globalStaticImage;
     }
   }
 

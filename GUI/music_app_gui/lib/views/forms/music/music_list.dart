@@ -116,6 +116,7 @@ class _MusicsListState extends State<MusicsList> {
                                               .removeItem(data);
                                           if (!musicController
                                               .isLoading.value) {
+                                            if (!context.mounted) return;
                                             ScaffoldMessenger.of(context)
                                                 .clearSnackBars();
                                           }

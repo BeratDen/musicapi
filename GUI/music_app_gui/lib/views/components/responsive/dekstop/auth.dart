@@ -115,6 +115,7 @@ class _AuthBarState extends State<AuthBar> {
                 await DioClient.dio.post('${dotenv.env['SERVER']}/logout');
             if (response.statusCode == 200) {
               if (!mounted) return;
+              // ignore: use_build_context_synchronously
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const LoginScreen()));
             }

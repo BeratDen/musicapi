@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 class Category {
   final int id;
   final String name;
@@ -6,8 +9,7 @@ class Category {
   final String slug;
   final DateTime createdAt;
   final DateTime updatedAt;
-
-  const Category({
+  Category({
     required this.id,
     required this.name,
     required this.value,
@@ -17,44 +19,81 @@ class Category {
     required this.updatedAt,
   });
 
-  /// The function `fromJson` is a factory constructor in Dart that takes a JSON object and returns a `Category` object if
-  /// the JSON is in the expected format, otherwise it throws a `FormatException`.
-  ///
-  /// Args:
-  ///   json (Map<String, dynamic>): A map containing the JSON data for a category.
-  ///
-  /// Returns:
-  ///   The factory method is returning an instance of the Category class.
-  factory Category.fromJson(Map<String, dynamic> json) {
-    return switch (json) {
-      {
-        'id': int id,
-        'name': String name,
-        'value': String value,
-        'description': String description,
-        'slug': String slug,
-        'createdAt': String
-            createdAt, // we get date as string from json variable
-        'updatedAt': String
-            updatedAt // we get date as string from json variable
-      } =>
-        Category(
-          id: id,
-          name: name,
-          value: value,
-          description: description,
-          slug: slug,
-          createdAt: DateTime.parse(
-              createdAt), // after we get date as string from json variable formatting to fit class variable
-          updatedAt: DateTime.parse(
-              updatedAt), // after we get date as string from json variable formatting to fit class variable
-        ),
-      _ => throw const FormatException('Failed to fetch category')
+  Category copyWith({
+    int? id,
+    String? name,
+    String? value,
+    String? description,
+    String? slug,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Category(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      value: value ?? this.value,
+      description: description ?? this.description,
+      slug: slug ?? this.slug,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'value': value,
+      'description': description,
+      'slug': slug,
+      'createdAt': createdAt.millisecondsSinceEpoch,
+      'updatedAt': updatedAt.millisecondsSinceEpoch,
     };
   }
 
+  factory Category.fromMap(Map<String, dynamic> map) {
+    return Category(
+      id: map['id'] as int,
+      name: map['name'] as String,
+      value: map['value'] as String,
+      description: map['description'] as String,
+      slug: map['slug'] as String,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Category.fromJson(String source) =>
+      Category.fromMap(json.decode(source) as Map<String, dynamic>);
+
   @override
   String toString() {
-    return '$id, $name, $description, $slug, $createdAt, $updatedAt';
+    return 'Category(id: $id, name: $name, value: $value, description: $description, slug: $slug, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(covariant Category other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.name == name &&
+        other.value == value &&
+        other.description == description &&
+        other.slug == slug &&
+        other.createdAt == createdAt &&
+        other.updatedAt == updatedAt;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        value.hashCode ^
+        description.hashCode ^
+        slug.hashCode ^
+        createdAt.hashCode ^
+        updatedAt.hashCode;
   }
 }

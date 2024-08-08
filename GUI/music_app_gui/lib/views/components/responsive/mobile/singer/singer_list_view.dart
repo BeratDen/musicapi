@@ -26,13 +26,18 @@ class SingerListView extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.all(5),
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) => ClipRRect(
-                        borderRadius: BorderRadius.circular(64),
-                        child: Image.network(
-                          snapshot.data![index].avatar!,
-                          height: 100, // Burada yüksekliği sınırlıyoruz
-                          width: 100,
-                          fit: BoxFit.cover,
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          viewModel.detail(context, snapshot.data![index]);
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(64),
+                          child: Image.network(
+                            snapshot.data![index].avatar!,
+                            height: 100, // Burada yüksekliği sınırlıyoruz
+                            width: 100,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     );

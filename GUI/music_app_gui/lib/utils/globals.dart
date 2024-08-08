@@ -1,1 +1,2 @@
 String globalServerUrl = "";
+String globalStaticImage = "";

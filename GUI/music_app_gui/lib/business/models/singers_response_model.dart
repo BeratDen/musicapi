@@ -2,8 +2,6 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:music_app_gui/models/artis.dart';
 
 class SingersResponseModel {

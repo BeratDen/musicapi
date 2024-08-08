@@ -18,6 +18,9 @@ Future<void> main() async {
   globalServerUrl = Platform.isAndroid || Platform.isIOS
       ? dotenv.env['EMU_SERVER']!
       : dotenv.env['SERVER']!;
+  globalStaticImage = Platform.isAndroid || Platform.isIOS
+      ? dotenv.env['EMU_404']!
+      : dotenv.env['404']!;
 
   try {
     final result = await InternetAddress.lookup('example.com');

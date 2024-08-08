@@ -7,11 +7,13 @@ environment:
   sdk: ">=3.1.1 <4.0.0"
 
 dependencies:
+  collection: any
+  intl: any
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.1.0
   flutter_secure_storage: ^9.0.0
-  http: ^0.13.0
+  http: ^1.0.0
   just_audio: ^0.9.36
   just_audio_mpv: ^0.1.7
   just_audio_windows: ^0.2.0
@@ -30,7 +32,7 @@ dependencies:
   google_fonts: ^4.0.3
   flutter_resizable_container: ^2.0.0
   get: ^4.6.6
-  youtube_explode_dart: ^1.10.10+2
+  youtube_explode_dart: ^2.2.1
   percent_indicator: ^4.0.1
   googleapis_auth: ^1.4.1
   shared_preferences: ^2.2.3

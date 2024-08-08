@@ -5,6 +5,7 @@ class User {
   String username;
   String email;
 
+  // ignore: prefer_final_fields
   static User _instance = User._(id: "", value: "", username: "", email: "");
 
   User._(
@@ -20,7 +21,6 @@ class User {
       required this.value});
 
   static User getInstance() {
-    _instance ??= User._(id: "", username: "", email: "", value: "");
     return _instance;
   }
 

@@ -44,13 +44,13 @@ class _VerticalCardState extends State<VerticalCard> {
         });
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(Colors.grey[800]!),
-        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+        backgroundColor: WidgetStateProperty.all<Color>(Colors.grey[800]!),
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
           EdgeInsets.zero,
         ),
         elevation:
-            MaterialStateProperty.all<double>(8.0), // Add elevation for shadow
-        shadowColor: MaterialStateProperty.all<Color>(Colors.black),
+            WidgetStateProperty.all<double>(8.0), // Add elevation for shadow
+        shadowColor: WidgetStateProperty.all<Color>(Colors.black),
       ), // Shadow color
       child: Container(
         decoration: const BoxDecoration(

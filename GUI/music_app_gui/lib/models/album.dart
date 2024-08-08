@@ -55,4 +55,16 @@ class Album {
       throw FormatException('Failed to fetch album. Error: $e');
     }
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'artist': artist,
+      'value': value,
+      'image': image,
+      'release_date': releaseDate.millisecondsSinceEpoch,
+      'num_stars': stars,
+      'musics': musics.map((x) => x.toMap()).toList(),
+    };
+  }
 }

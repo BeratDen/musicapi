@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:get/get.dart';
 import 'package:music_app_gui/models/user.dart';
 import 'package:music_app_gui/utils/dio_client.dart';
 import 'package:music_app_gui/utils/globals.dart';
@@ -20,8 +18,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late LoginViewModel _model;
-
   final _formkey = GlobalKey<FormState>();
   final _controllerUserMail = TextEditingController();
   final _controllerPassword = TextEditingController();
@@ -155,6 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         final user = User.fromJson(response.data);
         if (!context.mounted) return;
+        // ignore: use_build_context_synchronously
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (_) => const Home()));
         debugPrint('Current user : ${user.toString()}');

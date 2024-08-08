@@ -25,13 +25,18 @@ class CenterList extends StatelessWidget {
                       color: Colors.grey[850],
                       shape: BoxShape.circle,
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        snapshot.data![index].image,
-                        width: MediaQuery.sizeOf(context).width,
-                        height: MediaQuery.sizeOf(context).height * 1,
-                        fit: BoxFit.cover,
+                    child: GestureDetector(
+                      onTap: () {
+                        viewModel.detail(context, snapshot.data![index]);
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.network(
+                          snapshot.data![index].image,
+                          width: MediaQuery.sizeOf(context).width,
+                          height: MediaQuery.sizeOf(context).height * 1,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   )),

@@ -154,9 +154,9 @@ class MusicListItem extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color?>(Colors.grey[800]),
-          overlayColor: MaterialStateProperty.all<Color?>(Colors.grey[700]),
-          textStyle: MaterialStateProperty.all<TextStyle>(const TextStyle(
+          backgroundColor: WidgetStateProperty.all<Color?>(Colors.grey[800]),
+          overlayColor: WidgetStateProperty.all<Color?>(Colors.grey[700]),
+          textStyle: WidgetStateProperty.all<TextStyle>(const TextStyle(
               color: Colors.white, fontSize: 10, fontStyle: FontStyle.normal)),
         ),
         onPressed: () {

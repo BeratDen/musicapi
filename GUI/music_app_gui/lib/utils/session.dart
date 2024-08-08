@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class Session {
   static final Session _instance = Session._internal();
@@ -19,7 +20,7 @@ class Session {
 
   Future<Map> post(String uri, dynamic data) async {
     Response response = await dio.post(uri, data: data);
-    print(await cookieJar.loadForRequest(Uri.parse(uri)));
+    debugPrint((await cookieJar.loadForRequest(Uri.parse(uri))).toString());
     // updateCookie(response);
     return json.decode(response.data);
   }

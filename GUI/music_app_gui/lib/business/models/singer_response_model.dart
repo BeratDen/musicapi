@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 
-class Artist {
+class SingerResponseModel {
   final String? firstName;
   final String? lastName;
   final String? value;
@@ -13,8 +13,7 @@ class Artist {
   final List<dynamic>? albums;
   final List<dynamic>? musics;
   final List<dynamic>? feats;
-
-  const Artist({
+  SingerResponseModel({
     this.firstName,
     this.lastName,
     this.value,
@@ -26,7 +25,7 @@ class Artist {
     this.feats,
   });
 
-  Artist copyWith({
+  SingerResponseModel copyWith({
     String? firstName,
     String? lastName,
     String? value,
@@ -37,7 +36,7 @@ class Artist {
     List<dynamic>? musics,
     List<dynamic>? feats,
   }) {
-    return Artist(
+    return SingerResponseModel(
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       value: value ?? this.value,
@@ -50,77 +49,22 @@ class Artist {
     );
   }
 
-  factory Artist.fromJson(Map<String, dynamic> json) {
-    try {
-      final List<dynamic> categoriesJson = json['category'];
-      final List<dynamic> albumsJson = json['albums'];
-      final List<dynamic> musicsJson = json['musics'];
-      final List<dynamic> featsJson = json['feats'];
-      // Eğer "category" dizisi yoksa veya boşsa, boş bir liste döndür
-      if (categoriesJson.isEmpty &&
-          albumsJson.isEmpty &&
-          musicsJson.isEmpty &&
-          featsJson.isEmpty) {
-        return Artist(
-          firstName: json['first_name'],
-          lastName: json['last_name'],
-          value: json['value'],
-          resume: json['resume'],
-          avatar: json['avatar'],
-          categories: [],
-          albums: [],
-          musics: [],
-          feats: [],
-        );
-      }
-
-      // "category" dizisini String listesine dönüştür
-      final List<String> localCategories = categoriesJson.map((category) {
-        return category.toString();
-      }).toList();
-      final List<String> localAlbums = albumsJson.map((album) {
-        return album.toString();
-      }).toList();
-      final List<String> localMusics = musicsJson.map((music) {
-        return music.toString();
-      }).toList();
-
-      final List<String> localFeats = featsJson.map((feat) {
-        return feat.toString();
-      }).toList();
-
-      return Artist(
-        firstName: json['first_name'],
-        lastName: json['last_name'],
-        value: json['value'],
-        resume: json['resume'],
-        avatar: json['avatar'],
-        categories: localCategories,
-        albums: localAlbums,
-        musics: localMusics,
-        feats: localFeats,
-      );
-    } catch (e) {
-      throw FormatException('Failed to fetch artist. Error: $e');
-    }
-  }
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'first_name': firstName,
-      'last_name': lastName,
+      'firstName': firstName,
+      'lastName': lastName,
       'value': value,
       'resume': resume,
       'avatar': avatar,
-      'category': categories,
+      'categories': categories,
       'albums': albums,
       'musics': musics,
       'feats': feats,
     };
   }
 
-  factory Artist.fromMap(Map<String, dynamic> map) {
-    return Artist(
+  factory SingerResponseModel.fromMap(Map<String, dynamic> map) {
+    return SingerResponseModel(
       firstName: map['first_name'] != null ? map['first_name'] as String : null,
       lastName: map['last_name'] != null ? map['last_name'] as String : null,
       value: map['value'] != null ? map['value'] as String : null,
@@ -143,13 +87,16 @@ class Artist {
 
   String toJson() => json.encode(toMap());
 
+  factory SingerResponseModel.fromJson(String source) =>
+      SingerResponseModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
   @override
   String toString() {
-    return 'Artist(firstName: $firstName, lastName: $lastName, value: $value, resume: $resume, avatar: $avatar, categories: $categories, albums: $albums, musics: $musics, feats: $feats)';
+    return 'SingerResponseModel(firstName: $firstName, lastName: $lastName, value: $value, resume: $resume, avatar: $avatar, categories: $categories, albums: $albums, musics: $musics, feats: $feats)';
   }
 
   @override
-  bool operator ==(covariant Artist other) {
+  bool operator ==(covariant SingerResponseModel other) {
     if (identical(this, other)) return true;
     final listEquals = const DeepCollectionEquality().equals;
 
